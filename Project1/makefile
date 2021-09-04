@@ -8,3 +8,14 @@ link:
 
 run:
 	./main.out
+
+solveall: csolve slink srun
+
+csolve:
+	g++ -c solve.cpp -o solve.o
+
+slink:
+	g++ solve.o -o solve.out -larmadillo
+
+srun:
+	./solve.out
