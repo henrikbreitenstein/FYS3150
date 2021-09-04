@@ -35,6 +35,6 @@ int main(){
 
 //defining function
 double u(double a){
-    double result = -std::exp(-10) - (1-std::exp(-10))*a - 1;
+    double result =1 -std::exp(-10*a) - (1-std::exp(-10))*a;
     return result;
 }
