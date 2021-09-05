@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Problem7.hpp"
 #include <armadillo>
+
 int main(){
   int n=10;
   arma::mat U=arma::mat(n, n).fill(0.);
@@ -15,7 +16,11 @@ int main(){
     U(p-1,p)=c(p-1);
   }
   std::cout<<U<<std::endl;
-  arma::mat Unew=forsub(U,G);
-  std::cout<<U<<std::endl;
+
+  matvec UGNEW=forsub( U , G );
+  arma::mat Unew=UGNEW[0];
+  arma::mat Gnew=UGNEW[1];
+  std::cout<<Unew<<std::endl;
+  std::cout<<Gnew<<std::endl;
   return 0;
 }

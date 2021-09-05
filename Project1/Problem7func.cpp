@@ -1,7 +1,10 @@
 #include "Problem7.hpp"
 using namespace arma;
-
-mat forsub(mat U, vec G){
+struct matvec{
+  mat O;
+  vec P;
+};
+matvec forsub(mat U, vec G){
   uword n =G.size();
   for(uword i=1;i<G.size();i++){
     double t= U(i,i-1)/U(i-1,i);
@@ -9,8 +12,8 @@ mat forsub(mat U, vec G){
     U(i,i)=U(i,i-1)-U(i,i-1)*t;
     G(i)=G(i)-G(i-1)*t;
   }
-  mat Unew=mat(n,n).fill(U.);
-  return Unew;
+  matvec UG={U, G};
+  return UG;
 }
 
 void backsub(mat U, vec G){
