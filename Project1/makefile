@@ -19,3 +19,14 @@ slink:
 
 srun:
 	./solve.out
+
+pr7all: prc prlink prun
+
+prc:
+	g++ -c Problem7newtry.cpp Problem7func.cpp
+
+prlink:
+	g++ Problem7newtry.o Problem7func.o
+
+prun:
+	./a.out

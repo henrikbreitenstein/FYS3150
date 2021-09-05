@@ -1,6 +1,6 @@
-#include <iostream>
+
 #include "Problem7.hpp"
-#include <armadillo>
+#include <iostream>
 
 int main(){
   int n=10;
@@ -17,9 +17,9 @@ int main(){
   }
   std::cout<<U<<std::endl;
 
-  matvec UGNEW=forsub( U , G );
-  arma::mat Unew=UGNEW[0];
-  arma::mat Gnew=UGNEW[1];
+  matvec MatVec=forsub(U,G);
+  arma::mat Unew=MatVec.O;
+  arma::vec Gnew=MatVec.P;
   std::cout<<Unew<<std::endl;
   std::cout<<Gnew<<std::endl;
   return 0;

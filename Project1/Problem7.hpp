@@ -1,6 +1,10 @@
 #include <armadillo>
-using namespace arma;
-struct matvec;
-void forsub(mat, vec);
-void backsub(mat, vec);
-void toone(mat, vec);
+
+struct matvec{
+  arma::mat O;
+  arma::vec P;
+};
+
+matvec forsub(arma::mat U, arma::vec G);
+void backsub(arma::mat U, arma::vec G);
+void toone(arma::mat U, arma::vec G);
