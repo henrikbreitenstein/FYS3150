@@ -60,6 +60,6 @@ int main(){
 }
 
 double f(double x){
-  double result = 100*std::exp(-10);
+  double result = 100*std::exp(-10*x);
   return result;
 }
