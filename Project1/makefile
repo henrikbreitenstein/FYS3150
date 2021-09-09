@@ -23,10 +23,10 @@ srun:
 pr7all: prc prlink prun
 
 prc:
-	g++ -c Problem7newtry.cpp Problem7func.cpp
+	g++ -c Problem73.cpp Problem73func.cpp
 
 prlink:
-	g++ Problem7newtry.o Problem7func.o
+	g++ Problem73.o Problem73func.o
 
 prun:
 	./a.out

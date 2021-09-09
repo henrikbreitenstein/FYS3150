@@ -3,13 +3,15 @@
 #include <iostream>
 
 int main(){
-  int n=100;
+  int n=10;
   arma::mat U=arma::mat(n, n).fill(0.);
   arma::vec G=arma::vec(n).fill(0.);
+  arma::vec x=arma::vec(n+2).fill(0.);
   for (int j=0;j<=(n-1);j++){
-    double x=(j+1)/double(n+1);
-    G(j)=100*std::exp((-10)*x);
+    x(j+1)=(j+1)/double(n+1);
+    G(j)=100*std::exp((-10)*x(j+1));
   }
+  x(n+1)=(n+1)/double(n+1);
   std::cout<<G<<std::endl;
   arma::vec a=arma::vec(n-1).fill(-1.);
   arma::vec b=arma::vec(n).fill(2.);
@@ -38,5 +40,6 @@ int main(){
   arma::vec Gnew=UGnew.P;
   //std::cout<<Unew<<std::endl;
   std::cout<<Gnew<<std::endl;
+  //write(x, Gnew);
   return 0;
 }

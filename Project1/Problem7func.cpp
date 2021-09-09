@@ -31,3 +31,17 @@ matvec toone(arma::mat U, arma::vec G){
   matvec UG={U, G};
   return UG;
 }
+/*
+void write(arma::vec x, arma::vec v){
+  int n=G.size();
+  std::fstream fs;
+  std::string s = "sol7n" + std::to_string(n) + ".txt";
+  fs.open(s, std::ios::out | std::ios::trunc);
+  fs<<x(0)<<" "<< 0 << "\n";
+  for (int i = 0; i < n; i++){
+    fs << x(i) << "  " << v(i) << "\n";
+  }
+  fs<<x(n+1)<<" "<< 0<< "\n";
+  fs.close();
+}
+*/
