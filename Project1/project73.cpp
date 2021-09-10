@@ -4,13 +4,16 @@
 #include <cmath>
 
 int main(){
-  int n=100;
+  int n=100; //Changing manually
   arma::vec G=arma::vec(n).fill(0.);
-  arma::vec x=arma::vec(n+2).fill(0.);
-  double h=1/double(n+1);
-  for (int j=0;j<=(n+1);j++){
-    x(j)=j*h;
-  }
+  //arma::vec x=arma::vec(n+2).fill(0.);
+  arma::vec x = arma::linspace(0, 1, n+2);
+  double h = x(1)-x(0);
+  //double h=1/double(n+1);
+  //for (int j=0;j<=(n+1);j++){
+  //  x(j)=j*h;
+  //}
+  //G = 100*arma::exp(-10*x)*h*h;
   for (int j=0;j<=(n-1);j++){
     G(j)=100*exp((-10)*x(j+1))*(h*h);
   }
@@ -34,6 +37,10 @@ int main(){
   arma::vec Gstar=UGstar.K;
   vnew.print();
   //std::cout<<vnew<<std::endl;
-  return 0;
+  std::cout<<x(n+1)<<std::endl;
+  std::cout<<vnew.size()<<std::endl;
   write(x, vnew, n);
+
+
+  return 0;
 }

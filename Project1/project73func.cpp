@@ -2,9 +2,9 @@
 
 vecvec forsub(arma::vec a, arma::vec b, arma::vec c, arma::vec G){
   arma::uword n = G.size();
-  for(arma::uword i=1;i<G.size()-1;i++){
+  for(arma::uword i=1;i<=G.size()-1;i++){
     //std::cout<<i<<std::endl;
-    double t= a(i)/b(i-1);
+    double t= a(i-1)/b(i-1);
     //a(i)=a(i)-t*b(i-1);
     b(i)=b(i)-c(i-1)*t;
     G(i)=G(i)-G(i-1)*t;
@@ -44,13 +44,15 @@ vecvec toone(arma::vec a, arma::vec b, arma::vec c,  arma::vec G){
 }
 */
 void write(arma::vec x, arma::vec v,int n){
-  std::fstream fs;
+  std::ofstream fs;
   std::string s = "sol7n" + std::to_string(n) + ".txt";
+  std::cout << s << std::endl;
+  //std::ios::out | std::ios::trunc
   fs.open(s, std::ios::out | std::ios::trunc);
   fs << x(0) << "  " << 0 << "\n";
   for (int i = 0; i < n; i++){
     fs << x(i+1) << "  " << v(i) << "\n";
   }
-  fs << x(n-1) << "  " << 0 << "\n";
+  fs << x(n+1) << "  " << 0 << "\n";
   fs.close();
 }
