@@ -14,6 +14,7 @@ vecvec forsub(arma::vec a, arma::vec b, arma::vec c, arma::vec G){
   return UG;
 }
 
+
 vecvec backsub(arma::vec v, arma::vec b, arma::vec c, arma::vec G){
   int n=G.size();
   //std::cout<<G.size()<<std::endl;

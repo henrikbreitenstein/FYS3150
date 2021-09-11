@@ -28,7 +28,7 @@ srun:
 p9all: p9comp p9link p9run
 
 p9comp:
-	g++ problem9.cpp problem9func.cpp
+	g++ -c problem9.cpp problem9func.cpp
 
 p9link:
 	g++ problem9.o problem9func.o -o p9.out
@@ -41,7 +41,7 @@ p9run:
 clr73: comp73 link73 run73
 
 comp73:
-	g++ project73.cpp project73func.cpp
+	g++ -c project73.cpp project73func.cpp
 
 link73:
 	g++ project73.o project73func.o -o run73.out
