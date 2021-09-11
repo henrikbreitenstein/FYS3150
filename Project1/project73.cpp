@@ -2,8 +2,12 @@
 #include "project73.hpp"
 #include <iostream>
 #include <cmath>
+#include <chrono>
 
 int main(){
+  //start timing
+  std::cout<<"Duration:";
+  auto t1 = std::chrono::high_resolution_clock::now();
   int n=100; //Changing manually
   arma::vec G=arma::vec(n).fill(0.);
   //arma::vec x=arma::vec(n+2).fill(0.);
@@ -35,12 +39,13 @@ int main(){
   arma::vec bstar=UGstar.I;
   arma::vec cstar=UGstar.J;
   arma::vec Gstar=UGstar.K;
-  vnew.print();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  //vnew.print();
   //std::cout<<vnew<<std::endl;
-  std::cout<<x(n+1)<<std::endl;
-  std::cout<<vnew.size()<<std::endl;
-  write(x, vnew, n);
-
-
+  //std::cout<<x(n+1)<<std::endl;
+  //std::cout<<vnew.size()<<std::endl;
+  //write(x, vnew, n);
+  double duration_seconds = std::chrono::duration<double>(t2 - t1).count();
+  std::cout << "Duration:"; //<< duration_seconds << std::endl;
   return 0;
 }

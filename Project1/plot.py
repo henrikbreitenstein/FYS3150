@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #opens file and loads the coloumns to x and y
-for i in range(1, 10):
-    n = 150 + 10*i
+for i in range(1, 15):
+    n = 10*i
     x, y = np.loadtxt(f'out.txt', unpack=True)
     x2, v = np.loadtxt(f'sol{n}.txt', unpack=True)
 

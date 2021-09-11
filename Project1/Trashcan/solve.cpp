@@ -8,24 +8,25 @@ double f(double x); //Function f(x)
 int main(){
   int start = 0;
   double end = 1;
-  for (int count = 1; count < 10; count++){
+  for (int count = 1; count < 15; count++){
 
-      int n = 150 + 10*count;
+      int n = 10*count;
       arma::vec x = arma::vec(n);
       arma::vec g = arma::vec(n);
       //Filling vectors with correct values
       x(0) = 0.;
-      g(0) = f(0.);
       double h = (end-start)/n;
+      g(0) = f(0.);
+
       for (int i = 0; i < n; i++){
         double tmp = i*h;
         x(i) = tmp;
-        g(i) = f(tmp);
+        g(i) = h*h*f(tmp);
       }
       //Tridagonal matrix a, b and c, diagonals
-      arma::vec a = arma::vec(n).fill(-1); int ao = -1;
-      arma::vec b = arma::vec(n).fill(2); int bo = 2;
-      arma::vec c = arma::vec(n).fill(-1); int co = -1;
+      int ao = -1;
+      int bo = 2;
+      int co = -1;
       //Empty vector to fill inn with solutions
       arma::vec v = arma::vec(n);
       v(0) = 0.;
@@ -43,10 +44,7 @@ int main(){
         gtilde(i) = g(i) - tmp*g(i-1);
       }
       for (int i = n-2; i > 0; i--){
-        ghat(i-1) = gtilde(i-1) - co*ghat(i)/btilde(i);
-      }
-      for (int i=1; i < n-1; i++){
-        v(i)=ghat(i)/(btilde(i));
+        v[i] = (gtilde[i]-co*v[i+1])/btilde[i];
       }
       std::fstream fs;
       std::string s = "sol" + std::to_string(n) + ".txt";

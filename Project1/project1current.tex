@@ -283,22 +283,45 @@ $$
 \end{algorithm}
 Da ser vi at vi til sammen får $2\cdot n+ 2\cdot 7\cdot (n-1)=16n-14$ FLOPs.
 
-
-
-
-
-
-
-
-
-
-
 \section*{Problem 7}
+
+\subsection*{Problem a}
 
 Sriptet 'Problem7new.cpp' og 'Problem7func.cpp' bruker den generelle algoritmen  til å løse matriselikningen. For å kjøre de sammen: \\
 
 \$ make pr7all
 
+\subsection*{Problem b}
+
+Vi kjørte for $n = 10$ i \ref{7n100}, $n = 100$ i \ref{7n100}, $n = 1000$ i \ref{7n1000}, $n = 10000$ i \ref{7n10000}. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{Images/problem7NEW10.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 10$ som antall steg.}
+\label{7n10}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{Images/problem7NEW100.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 100$ som antall steg.}
+\label{7n100}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{Images/problem7NEW1000.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 1000$ som antall steg.}
+\label{7n1000}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{Images/problem7NEW10000.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 10000$ som antall steg.}
+\label{7n10000}
+\end{figure}
 \section*{Problem 8}
 
 \subsection*{Problem a}
@@ -307,6 +330,7 @@ Sriptet 'Problem7new.cpp' og 'Problem7func.cpp' bruker den generelle algoritmen 
 
 \section*{Problem 9}
 
+\subsection*{Problem a}
 
 \begin{algorithm}[H]
 	\caption{Spesialisert algoritme}\label{algo:spec}
@@ -314,33 +338,57 @@ Sriptet 'Problem7new.cpp' og 'Problem7func.cpp' bruker den generelle algoritmen 
 	\State $$a \leftarrow -1$$
 	\State $$b \leftarrow 2$$
 	\State $$c \leftarrow -1$$
-	\State $$g \leftarrow \overrightarrow{0_n}$$
-	\State $$\widetilde{b} \leftarrow \overrightarrow{0_n}$$
-	\State $$\widetilde{g} \leftarrow \overrightarrow{0_n}$$
-	\State $$v \leftarrow \overrightarrow{0_n}$$
-	\State $$\widetilde{b}_0 \leftarrow b$$
-	\For {$i=0, 1, 2, \cdots, n$} \Comment{Fyller $g$ med verdiene til $f(x)$}
-	\State $$g_i \leftarrow f(x_i)$$
-	\EndFor
-	\State $$\widetilde{g}_0 \leftarrow g_0$$
-	\State $$d \leftarrow a \cdot c$$
+	\State $$d \leftarrow a \cdot c$$ \Comment{1 FLOP}
 	\For {$i=0, 1, 2, \cdots, n-1$} \Comment{Forward elemination}
-	\State $$\widetilde{b}_{i+1} \leftarrow \widetilde{b}_{i+1} - \frac{d}{\widetilde{b}_i}$$ \Comment{2 FLOPs}
-	\State $$\widetilde{g}_{i+1} \leftarrow g_{i+1} - \frac{a}{\widetilde{b}_i}g_i$$ \Comment{3 FLOPs}
+	\State $$\widetilde{b}_{i+1} \leftarrow \widetilde{b}_{i+1} - \frac{d}{\widetilde{b}_i}$$ \Comment{2 FLOPs} \\
+	\State $$\widetilde{g}_{i+1} \leftarrow g_{i+1} - \frac{a}{\widetilde{b}_i}g_i$$ \Comment{3 FLOPs} \\
 	\EndFor
 	\For {$i=n-1, n-2, \cdots, 0$} \Comment{Backward elemination}
-	\State $$v_i \leftarrow \frac{\widetilde{g}_i - cv_{i+1}}{\widetilde{b}_i}$$ \Comment{3 FLOPs}
+	\State $$v_i \leftarrow \frac{\widetilde{g}_i - cv_{i+1}}{\widetilde{b}_i}$$ \Comment{3 FLOPs} 
 	\EndFor
 	\end{algorithmic}
 \end{algorithm}
 
-\subsection*{Problem a}
 \subsection*{problem b}
+
+Vi regner ut produktet $a \cdot c$ som gir oss $1$ FLOP. For "Forward Elemination" loopen så har vi 5 FLOPs per iterasjoner, som gir tilsammen $5n$. I loopen for "Backwards elemination" så har 3 FLOPs per iterasjon som gir oss $3n$ FLOPs tilsammen. Totalt ender vi da opp med $8n + 1$ FLOPs.
+
 \subsection*{Problem c}
 
-I filen 'solve.cpp' har vi kodet den spesielle algoritmen. Kjøres ved kommandoen \\
+I filen 'problem9.cpp' har vi kodet den spesielle algoritmen. Kjøres ved kommandoen \\
 
-\$ make solveall
+\$ make p9all
 
+\section*{Problem 10}
+
+\section*{Problem 11}
+
+Med LU dekomposisjon så vil man bruke i utgangspunktet $N^3$ FLOPs kun for dekomposisjonen og så skalerer kompleksiteten til å løse hver enkelt $\textbf{A}\vec{v}= \vec{g}$ likning med $N^2$. For kun én slik likningen kan vi se at både den generelle og spesielle algoritmen når man har en tridiagonal matrise skalerer to ordner lavere enn LU dekomposisjon.
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
