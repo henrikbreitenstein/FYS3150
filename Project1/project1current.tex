@@ -75,40 +75,38 @@
 \begin{document}
 
 \title{Title of the document}      % self-explanatory
-\author{Your name(s) here}          % self-explanatory
+\author{Henrik Modahl Breitenstein}          % self-explanatory
+\author{Carl Petter Duedahl}
 \date{\today}                             % self-explanatory
 \noaffiliation                            % ignore this, but keep it.
 
 
-\maketitle 
-    
-\textit{List a link to your github repository here!}
-    
-\section*{Problem 1}
+\maketitle
 
 \begin{center}
 	\textit{https://github.com/henrikbreitenstein/FYS3150.git}
 \end{center}
+
 \section*{Problem 1}
 
-Poisson equation
+Poisson likningen
 $$- \frac{\mathrm{d}^2 u}{\mathrm{d}x^2} = f(x)$$
 
-Replaceing $f(x)$ with given function
+Bytter $f(x)$ med gitt funksjon
 
 \begin{align*}
 - \frac{\mathrm{d}^2 u}{\mathrm{d}x^2} =& 100e^{-10x} \\
 -\mathrm{d}^2 u =& 100e^{-10x} \; \mathrm{d}x^2
 \end{align*}
-Taking integrals
+Tar integralene
 
 \begin{align*}
--\int \int \mathrm{d}^2 u =& \int \int 100e^{-10x} \; \mathrm{d}x^2 \\
+-\iint \mathrm{d}^2 u =& \iint 100e^{-10x} \; \mathrm{d}x^2 \\
 -u =& \int -10e^{-10x} + c_1 \; \mathrm{d} x \\
 -u =& e^{-10x} + c_1x + c_2 \\
 u =& -e^{-10x} - c_1x - c_2 \\
 \end{align*}
-Using initial conditions:
+Bruker initialbetingelsene
 
 
 \begin{equation}\label{eq1}
@@ -120,31 +118,41 @@ u(0) = 0 \Rightarrow - 1 - c_2 = 0
 u(1) = 0 \Rightarrow -e^{-10} -c1 -c2 = 0
 \end{equation}
 
-With \ref{eq1} and \ref{eq2} we get:
+Med \ref{eq1} og \ref{eq2} får vi:
 
 \begin{align*}
 c2 =& -1 \\
 c1 =& 1 - e^{-10}
 \end{align*}
-By replacing $c_1$ and $c_2$ we get:
+Ved å sette inn for $c_1$ og $c_2$ får vi:
 
 \begin{equation}\label{equ}
-u = 1 - (1-e^{-10})x - e^{-10x} 
+u = 1 - (1-e^{-10})x - e^{-10x}
 \end{equation}
 
 
 \section*{Problem 2}
-We write equations using the LaTeX \texttt{equation} (or \texttt{align}) environments. Here is an equation with numbering
-\begin{equation}\label{eq:newton}
-    \vb{F} = \dv{\vb{p}}{t},
-\end{equation}
-and here is one without numbering:
+
+I repostory'et under FYS3150/Project1/main.cpp så har vi skrevet koden som regner ut verdiene til den eksakte løsningen, og i FYS3150/Project1/plot.py så tegnes grafen. Kan kjøre programmet 'main.cpp' med commandoen \\
+
+\$ make all
+
+og kjøre 'plot.py' med \\
+
+\$ python plot.py
 
 \section*{Problem 5}
-\subsection{Problem b}
+\subsection*{Problem a}
+
+Siden vi gjør en matrismultiplikasjon så må bredden, $n$, til $\textbf{A}$ være det samme som lengden $m$ til $\overrightarrow{v}$ og $\overrightarrow{g}$. Så
+
+$$n = m$$
+
+\subsection*{Problem b}
 Av $A\vec{v}=\vec{g}$ vil vi finne alle verdier mellom grensebetingelsene $u(0)=u(1)=0$. $\vec{v*}$ er den samme som $\vec{v}$ men vi har lagt til $v_0$ og $v_{n+1}$ som er grensebetingelsene.
 
-\section{Problem 6}
+\section*{Problem 6}
+
 \section*{a}
 Vi har nå en vektor
 $$
@@ -171,18 +179,39 @@ $$
 (III)& & a_3v_2 &+b_3v_3 &+ c_3 v_4 &=g_3\\
 \vdots&&&&&\\
 (n)&&&a_n v_{n-1}&+b_n v_n&=g_n\\
- 
+
 \end{matrix}
 $$ Herfra skal vi radredusere og starter med å ta $(II)-\frac{a_2}{b_1}(I)$ slik at vi får $$\begin{matrix}
 (II*) & 0&b_2-\frac{c_1\cdot a_2}{b_1}& c_2 &\cdots & g_2-g_1\frac{a_2}{b_1}
 \end{matrix}$$
-og vi ser da at $a_2$ går bort. Vi kan også sette $b_2^*\equiv b_2-\frac{a_2 \cdot c_1}{b_1}$ og $g_2^*\equiv g_2-g_1\frac{a_2}{b_1}$. Da har vi mellom $(II^*)$ og $(III)$ noe som ser ganske likt ut som det vi hadde mellom $(I)$ og $(II)$. Derfor gjør vi det samme som vi gjorde før og tar $(III)-\frac{a_3}{b_2^*}(II)^*$ og får 
+og vi ser da at $a_2$ går bort. Vi kan også sette $b_2^*\equiv b_2-\frac{a_2 \cdot c_1}{b_1}$ og $g_2^*\equiv g_2-g_1\frac{a_2}{b_1}$. Da har vi mellom $(II^*)$ og $(III)$ noe som ser ganske likt ut som det vi hadde mellom $(I)$ og $(II)$. Derfor gjør vi det samme som vi gjorde før og tar $(III)-\frac{a_3}{b_2^*}(II)^*$ og får
 $$
 \begin{matrix}
 (III)^* & 0 &0& b_3-\frac{c_2\cdot a_3}{b_2^*}&c_3 & g_3-g_1\frac{a_3}{b_2^*}
 \end{matrix}
 $$
-og vi kan igjen definere $b_3^*=b_3-\frac{c_2\cdot a_3}{b_2^*}$ og $g_3^*=g_3-g_1\frac{a_3}{b_2^*}$. Og vi kan da fortsette med dette nedover som $(k)-\frac{a_{k}}{b_{k-1}^*}(k-1)^*$. Så har vi fjernet $a$-ene så da må vi fjerne $c$-ene. Vi starter nå på siste og neste siste rad, altså $(n)^*$ og $(n-1)^*$ som nå er
+og vi kan igjen definere $b_3^*=b_3-\frac{c_2\cdot a_3}{b_2^*}$ og $g_3^*=g_3-g_1\frac{a_3}{b_2^*}$. Og vi kan da fortsette med dette nedover som $(k)-\frac{a_{k}}{b_{k-1}^*}(k-1)^*$. Så har vi fjernet $a$-ene så da må vi fjerne $c$-ene og normalisere b-ene. For å gjøre starter vi i siste ledd med
+
+$$
+(n)/b_n
+$$
+så
+$$
+b_n=\frac{b_n}{b_n}
+$$
+og
+$$
+g_n^*=\frac{g_n}{b_n}
+$$
+Da får vi at
+$
+A_n v_n=g_n
+$
+blir satt ned til
+$$
+v_n=\frac{g_n}{b_n}
+$$
+
 $$
 \begin{matrix}
 (n-1)^* & 0& \cdots & b_{n-1}^* &c_{n-1}&g_{n-1}^* \\
@@ -262,28 +291,56 @@ Da ser vi at vi til sammen får $2\cdot n+ 2\cdot 7\cdot (n-1)=16n-14$ FLOPs.
 
 
 
-Sometimes it is useful to refer back to a previous equation, like we're demonstrating here for equation \ref{eq:newton}.
-
-We can include figures using the \texttt{figure} environment. Whenever we include a figure or table, we \textit{must} make sure to actually refer to it in the main text, e.g.\ something like this: ``In figure \ref{fig:rel_err} we show \ldots''. 
-
-Also, note the LaTeX code we used to get correct quotation marks in the previous sentence. (Simply using the \texttt{"} key on your keyboard will give the wrong result.) Figures should preferably be vector graphics (e.g.\ a \texttt{.pdf} file) rather than raster graphics (e.g.\ a \texttt{.png} file).
-
-By the way, don't worry too much about where LaTeX decides to place your figures and tables --- LaTeX knows more than we do about proper document layout. As long as you label all your figures and tables and refer to them in the text, it's all good. Of course, in some cases it can be worth trying to force a specific placement, to avoid the figure/table appearing many pages away from the main text discussing it, but this isn't something you should spend time on until the very end of the writing process.
 
 
-Next up is a table, created using the \texttt{table} and \texttt{tabular} environments. We refer to it by table \ref{tab:output_table}.
-\begin{table}%[h!]
-    \centering
-    \begin{tabular}{c@{\hspace{1cm}} c}
-        \hline
-        Number of points & Output \\
-        \hline
-        10 &  0.3086\\
-        100 &  0.2550\\
-        \hline
-    \end{tabular}\caption{Write a descriptive caption here, explaining the content of your table.}\label{tab:output_table}
-\end{table}
+\section*{Problem 7}
 
-Finally, we can list algorithms by using the \texttt{algorithm} environment, as demonstrated here for algorithm \ref{algo:midpoint_rule}.
+Sriptet 'Problem7new.cpp' og 'Problem7func.cpp' bruker den generelle algoritmen  til å løse matriselikningen. For å kjøre de sammen: \\
+
+\$ make pr7all
+
+\section*{Problem 8}
+
+\subsection*{Problem a}
+\subsection*{problem b}
+\subsection*{Problem c}
+
+\section*{Problem 9}
+
+
+\begin{algorithm}[H]
+	\caption{Spesialisert algoritme}\label{algo:spec}
+	\begin{algorithmic}
+	\State $$a \leftarrow -1$$
+	\State $$b \leftarrow 2$$
+	\State $$c \leftarrow -1$$
+	\State $$g \leftarrow \overrightarrow{0_n}$$
+	\State $$\widetilde{b} \leftarrow \overrightarrow{0_n}$$
+	\State $$\widetilde{g} \leftarrow \overrightarrow{0_n}$$
+	\State $$v \leftarrow \overrightarrow{0_n}$$
+	\State $$\widetilde{b}_0 \leftarrow b$$
+	\For {$i=0, 1, 2, \cdots, n$} \Comment{Fyller $g$ med verdiene til $f(x)$}
+	\State $$g_i \leftarrow f(x_i)$$
+	\EndFor
+	\State $$\widetilde{g}_0 \leftarrow g_0$$
+	\State $$d \leftarrow a \cdot c$$
+	\For {$i=0, 1, 2, \cdots, n-1$} \Comment{Forward elemination}
+	\State $$\widetilde{b}_{i+1} \leftarrow \widetilde{b}_{i+1} - \frac{d}{\widetilde{b}_i}$$ \Comment{2 FLOPs}
+	\State $$\widetilde{g}_{i+1} \leftarrow g_{i+1} - \frac{a}{\widetilde{b}_i}g_i$$ \Comment{3 FLOPs}
+	\EndFor
+	\For {$i=n-1, n-2, \cdots, 0$} \Comment{Backward elemination}
+	\State $$v_i \leftarrow \frac{\widetilde{g}_i - cv_{i+1}}{\widetilde{b}_i}$$ \Comment{3 FLOPs}
+	\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection*{Problem a}
+\subsection*{problem b}
+\subsection*{Problem c}
+
+I filen 'solve.cpp' har vi kodet den spesielle algoritmen. Kjøres ved kommandoen \\
+
+\$ make solveall
+
 
 \end{document}

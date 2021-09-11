@@ -5,7 +5,14 @@
 int main(){
   int n=10;
   arma::mat U=arma::mat(n, n).fill(0.);
-  arma::vec G=arma::vec(n);
+  arma::vec G=arma::vec(n).fill(0.);
+  arma::vec x=arma::vec(n+2).fill(0.);
+  for (int j=0;j<=(n-1);j++){
+    x(j+1)=(j+1)/double(n+1);
+    G(j)=100*std::exp((-10)*x(j+1));
+  }
+  x(n+1)=(n+1)/double(n+1);
+  std::cout<<G<<std::endl;
   arma::vec a=arma::vec(n-1).fill(-1.);
   arma::vec b=arma::vec(n).fill(2.);
   arma::vec c=arma::vec(n-1).fill(-1.);
@@ -15,12 +22,24 @@ int main(){
     U(p,p)=b(p);
     U(p-1,p)=c(p-1);
   }
-  std::cout<<U<<std::endl;
+  //std::cout<<U<<std::endl;
 
-  matvec MatVec=forsub(U,G);
-  arma::mat Unew=MatVec.O;
-  arma::vec Gnew=MatVec.P;
-  std::cout<<Unew<<std::endl;
+  matvec UGtilde=forsub(U,G);
+  arma::mat Utilde=UGtilde.O;
+  arma::vec Gtilde=UGtilde.P;
+  std::cout<<Utilde<<std::endl;
+  std::cout<<Gtilde<<std::endl;
+  std::cout<<Utilde(int(G.size())-2, int(G.size())-2)<<std::endl;
+  matvec UGstar=backsub(Utilde, Gtilde);
+  arma::mat Ustar=UGstar.O;
+  arma::vec Gstar=UGstar.P;
+  std::cout<<Ustar<<std::endl;
+  std::cout<<Gstar<<std::endl;
+  matvec UGnew=toone(Ustar, Gstar);
+  arma::mat Unew=UGnew.O;
+  arma::vec Gnew=UGnew.P;
+  //std::cout<<Unew<<std::endl;
   std::cout<<Gnew<<std::endl;
+  //write(x, Gnew);
   return 0;
 }
