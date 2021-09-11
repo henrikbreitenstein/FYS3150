@@ -4,6 +4,7 @@ reps=5
 #For the relative error
 def exactu(x):
     return 1-(1-np.exp(-10))*x -np.exp(-10*x)
+maxabs=np.zeros(reps)
 maxrel=np.zeros(reps)
 nl=np.zeros(reps)
 #opens file and loads the coloumns to x and y
@@ -18,6 +19,7 @@ for i in range(1, reps):
     #Finds the maximum relative error
     print("maxrel", np.amax(relerr[1:n]))
     maxrel[i]=np.max(relerr[1:n])
+    maxabs[i]=np.max(abserr[1:n])
     nl[i]=np.log10(n)
     print("n", nl[i])
     #plots it with title and names on axes
@@ -42,7 +44,14 @@ for i in range(1, reps):
 print("n", np.size(nl), nl)
 print("error", np.size(maxrel), maxrel)
 fig3=plt.figure(figsize=(8,8))
-ax=plt.axes(xlabel="n", ylabel="max error for this n", title=f"Logarithmic description of n")
+ax=plt.axes(xlabel="logarithmic description of n", ylabel="max relative error for this n", title=f"Relative error")
 ax.plot(nl, maxrel)
 plt.legend()
+plt.savefig("abserr.png")
+plt.show()
+fig4=plt.figure(figsize=(8,8))
+ax=plt.axes(xlabel="logarithmic description of n", ylabel="max absolute error for this n", title=f"Absolute error")
+ax.plot(nl, maxabs)
+plt.legend()
+plt.savefig("relerr.png")
 plt.show()
