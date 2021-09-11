@@ -1,3 +1,6 @@
+#ifndef PROBLEM_7_H
+#define PROBLEM_7_H
+
 #include <armadillo>
 
 struct matvec{
@@ -8,3 +11,5 @@ struct matvec{
 matvec forsub(arma::mat U, arma::vec G);
 void backsub(arma::mat U, arma::vec G);
 void toone(arma::mat U, arma::vec G);
+
+#endif
