@@ -4,7 +4,7 @@
 #include <cmath>
 
 int main(){
-  int n=100; //Changing manually
+  int n=1000; //Changing manually
   arma::vec G=arma::vec(n).fill(0.);
   //arma::vec x=arma::vec(n+2).fill(0.);
   arma::vec x = arma::linspace(0, 1, n+2);
