@@ -1,7 +1,7 @@
 \documentclass[english,notitlepage]{revtex4-1}  % defines the basic parameters of the document
 %For preview: skriv i terminal: latexmk -pdf -pvc filnavn
 
-
+\usepackage{verbatim}
 
 % if you want a single-column, remove reprint
 
@@ -181,11 +181,30 @@ $$
 (n)&&&a_n v_{n-1}&+b_n v_n&=g_n\\
 
 \end{matrix}
-$$ Herfra skal vi radredusere og starter med å ta $(II)-\frac{a_2}{b_1}(I)$ slik at vi får $$\begin{matrix}
-(II*) & 0&b_2-\frac{c_1\cdot a_2}{b_1}& c_2 &\cdots & g_2-g_1\frac{a_2}{b_1}
-\end{matrix}$$
-og vi ser da at $a_2$ går bort. Vi kan også sette $b_2^*\equiv b_2-\frac{a_2 \cdot c_1}{b_1}$ og $g_2^*\equiv g_2-g_1\frac{a_2}{b_1}$. Da har vi mellom $(II^*)$ og $(III)$ noe som ser ganske likt ut som det vi hadde mellom $(I)$ og $(II)$. Derfor gjør vi det samme som vi gjorde før og tar $(III)-\frac{a_3}{b_2^*}(II)^*$ og får
 $$
+\begin{comment}
+
+Herfra skal vi radredusere og starter med å ta $(II)-\frac{a_2}{b_1}(I)$ slik at vi får
+$$
+\begin{matrix}
+(II*) & 0&b_2-\frac{c_1\cdot a_2}{b_1}& c_2 &\cdots & g_2-g_1\frac{a_2}{b_1}
+\end{matrix}
+$$
+og vi ser da at $a_2$ går bort. Vi kan også sette $b_2^*\equiv b_2-\frac{a_2 \cdot c_1}{b_1}$ og $g_2^*\equiv g_2-g_1\frac{a_2}{b_1}$. Da har vi mellom $(II^*)$ og $(III)$ noe som ser ganske likt ut som det vi hadde mellom $(I)$ og $(II)$. Vi skal gjøre noe liknende nå også, men også normalisere b slik at den til slutt blir identitetsmatrisen. Da starter vi med siste ledd i $A^*$ som er
+$$
+\begin{matrix}
+	0 & \cdots & b_n & g_n
+\end{matrix}
+$$
+og her deler vi på $b_n$ slik at vi får
+$$
+\begin{matrix}
+0 & \cdots $ 1 & \frac{g_n}{b_n}
+\end{matrix}
+$$
+\end{comment}
+
+$$ 
 \begin{matrix}
 (III)^* & 0 &0& b_3-\frac{c_2\cdot a_3}{b_2^*}&c_3 & g_3-g_1\frac{a_3}{b_2^*}
 \end{matrix}
@@ -211,6 +230,44 @@ blir satt ned til
 $$
 v_n=\frac{g_n}{b_n}
 $$
+Så kan vi se på leddet $n-1$ her har vi både en $b_{n-1}$ og en $c_{n-1}$. Vi må derfor gjøre $$(n-1)=((n-1)-(n)\cdot c_{n-1})/b_{n-1}$$ så vi også får fjernet $c_{n-1}$ og står kun igjen med et ettall i $A$ matrisen som gir oss at 
+$$
+v_{n-1}=\frac{g_{n-1}-g_n\cdot c_{n-1}}{b_{n-1}}
+$$
+og herfra kan vi generalisere til
+$$
+v_{i}=\frac{g_{i}-v_{i+1}\cdot c_{n}}{b_{n-1}}
+$$
+Så da får vi algoritmen
+\begin{algorithm}[H]
+	\caption{Radredusering av tridiagonal matrise}\label{algo:midpoint_rule}
+	\begin{algorithmic}
+		\For{$i = 2, 3, ..., n$} \Comment{Forward substitution, $n-1$ repetisjoner}
+		\State $$t\leftarrow \frac{a_i}{b_{i-1}}$$ \Comment{1 FLOP}
+		$$
+		b_{i}\leftarrow b_{i}-c_{i-1}\cdot t
+		$$ \Comment{2 FLOPs}
+		$$
+		g_i\leftarrow g_i-g_{i-1} t
+		$$ \Comment{2 FLOPs} \\
+		\EndFor
+		\Comment{Til sammen $7\cdot (n-1)$ FLOPs i loopen}
+		\State $$
+		v_n=g_n/b_n
+		$$ \Comment{1 FLOP}
+		\For{$j=n-1,n-2, ... ,1$} \Comment{Backward Substitution, $n-1$ repetisjoner}
+		\State
+		$$
+		v_j\leftarrow (g_j-v_{j+1}\cdot c_j)/b_j
+		$$ \Comment{3 FLOPs} \\
+		\EndFor
+		\Comment{Til sammen $3\cdot (n-1)$ FLOPs i loopen}
+	\end{algorithmic}
+\end{algorithm}
+Så antall FLOPs i loopen blir til sammen 
+$$7(n-1)+1+3(n-1)=\underline{\underline{10(n-1)+1}}
+$$
+\begin{comment}
 
 $$
 \begin{matrix}
@@ -282,7 +339,7 @@ $$
 	\end{algorithmic}
 \end{algorithm}
 Da ser vi at vi til sammen får $2\cdot n+ 2\cdot 7\cdot (n-1)=16n-14$ FLOPs.
-
+\end{comment}
 \section*{Problem 7}
 
 \subsection*{Problem a}
@@ -325,7 +382,7 @@ Vi har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnæ
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.65]{•}
+\includegraphics[scale=0.65]{abserr.png}
 \caption{Den absolutte feilen mellom den eksakte verdien, $u(x)$, og vår tilnærming $v(x)$.}
 \label{abserr}
 \end{figure}
