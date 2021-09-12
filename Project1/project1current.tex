@@ -141,7 +141,81 @@ og kjøre 'plot.py' med \\
 
 \$ python plot.py
 
+\section*{Problem 3}
+
+Vi starter med Poisson likningen:
+
+$$ -\frac{d^2 u(x}{dx^2} = f(x)$$
+
+Vi har så via Taylor ekspansjon at:
+
+$$u(x + h) = u(x) + u'(x)h + \frac{1}{2}u''(x)h^2 + \frac{1}{6}u'''(x)h^3 + O(h^4)$$
+$$u(x - h) = u(x) - u'(x)h + \frac{1}{2}u''(x)h^2 - \frac{1}{6}u'''(x)h^3 + O(h^4)$$
+
+Og finner så summen:
+
+$$u(x+h)+u(x-h) = 2u(x) + f''(x)h^2 + O(h^4)$$
+
+Som gir oss
+
+$$u''(x) = \frac{u(x+h)-2u(x)+u(x-h)}{h^2} + O(h^2)$$
+
+Om vi så fjerner error-leddet:
+
+$$v''(x) = \frac{v(x+h)-2v(x)+v(x-h)}{h^2}$$
+
+Som vi kan bruke til å skrive Poisson likningen:
+
+$$-\frac{v(x+h)-2v(x)+v(x-h)}{h^2} = f(x)$$
+
+\section*{Problem 4}
+
+Om vi skriver det om som:
+
+$$-v(x+h)+2v(x)-v(x-h) = h^2f(x)$$
+
+Om vi har x-verdier:
+
+$$\vec{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}$$
+
+Om vi så setter verdiene til $v$ inne i:
+
+$$ \vec{v} = \begin{bmatrix}
+v(x_1) \\ v(x_2) \\ \vdots \\ v(x_n)
+\end{bmatrix}$$
+
+Og det samme med verdiene tii $f(x)$:
+
+$$\vec{g} = \begin{bmatrix}
+f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n)
+\end{bmatrix}$$
+
+Så skriver vi likningen om:
+
+$$-v_{i+1} + 2v_{i} - v_{i-1} = h^2g_i$$
+
+Som kan skrives:
+
+$$\begin{bmatrix}
+-1 \\ 2 \\ -1
+\end{bmatrix}\begin{bmatrix}
+v_{i+1} \\ v_i \\ v_{i-1}
+\end{bmatrix} = h^2 g_i $$
+
+Som vil gjelde for alle $i$:
+
+$$\textbf{A} \vec{v} = h^2 \vec{g} $$
+
+Hvor \textbf{A} må ha $\begin{bmatrix}
+-1 \\ 2 \\ -1
+\end{bmatrix}$ forskøvet for hver rad slik at de henger sammen med de riktige verdiene til $v(x)$ i $\vec{v}$.
+
+
 \section*{Problem 5}
+
+
 \subsection*{Problem a}
 
 Siden vi gjør en matrismultiplikasjon så må bredden, $n$, til $\textbf{A}$ være det samme som lengden $m$ til $\overrightarrow{v}$ og $\overrightarrow{g}$. Så
@@ -201,7 +275,7 @@ $$
 \begin{matrix}
 0 & \cdots $ 1 & \frac{g_n}{b_n}
 \end{matrix}
-$$
+
 \end{comment}
 
 $$ 
@@ -421,6 +495,17 @@ I filen 'problem9.cpp' har vi kodet den spesielle algoritmen. Kjøres ved komman
 \$ make p9all
 
 \section*{Problem 10}
+
+Kjører både den generelle og spesifikke algortimen 100 gangerfor hver $n$ og tar så gjennomsnittet. Resultaten er vist i plottet \ref{timeplot}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{plottime.jpg}
+\caption{Tiden brukt til både den genrelle og spesifikke agoritmen for forskjellige $n$.}
+\label{timeplot}
+\end{figure}
+
+Kan se at ved små $n$ så er tidsbruken nesten helt lik, men når man kommer opp i større $n$ så bruker den spesielle merkbart mindre tid enn den generelle.
 
 \section*{Problem 11}
 
