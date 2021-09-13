@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-reps=5
+reps=7
 #For the relative error
 def exactu(x):
     return 1-(1-np.exp(-10))*x -np.exp(-10*x)
@@ -29,17 +29,19 @@ for i in range(1, reps):
     ax.plot(x,y, label='Exact')
     ax.plot(x2, v, label='Approx')
     plt.legend()
-    plt.savefig(f'Images/plotexap{n}.jpg')
+    plt.savefig(f'plotexap{n}.jpg')
     plt.show()
     fig2=plt.figure(figsize=(8,8))
     ax=plt.axes(xlabel="x", ylabel="Absoulute Error", title=f"Absolute error for n={n}")
     ax.plot(x2, abserr)
     plt.legend()
+    plt.savefig(f"abserrn{n}")
     plt.show()
     fig3=plt.figure(figsize=(8,8))
     ax=plt.axes(xlabel="x", ylabel="Relative Error", title=f"Relative error for n={n}")
     ax.plot(x2, relerr)
     plt.legend()
+    plt.savefig(f"relerr{n}")
     plt.show()
 print("n", np.size(nl), nl)
 print("error", np.size(maxrel), maxrel)
@@ -47,11 +49,11 @@ fig3=plt.figure(figsize=(8,8))
 ax=plt.axes(xlabel="logarithmic description of n", ylabel="max relative error for this n", title=f"Relative error")
 ax.plot(nl, maxrel)
 plt.legend()
-plt.savefig("Images/abserr.png")
+plt.savefig("abserr.png")
 plt.show()
 fig4=plt.figure(figsize=(8,8))
 ax=plt.axes(xlabel="logarithmic description of n", ylabel="max absolute error for this n", title=f"Absolute error")
 ax.plot(nl, maxabs)
 plt.legend()
-plt.savefig("Images/relerr.png")
+plt.savefig("relerr.png")
 plt.show()
