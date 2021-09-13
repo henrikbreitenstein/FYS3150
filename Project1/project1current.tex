@@ -141,6 +141,15 @@ og kjøre 'plot.py' med \\
 
 \$ python plot.py
 
+Og vi får plottet \ref{exact}:
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.65]{Images/exact.png}
+\caption{Eksakte løsning $u(x)$}
+\label{exact}
+\end{figure}
+
 \section*{Problem 3}
 
 Vi starter med Poisson likningen:
@@ -415,6 +424,7 @@ $$
 \end{algorithm}
 Da ser vi at vi til sammen får $2\cdot n+ 2\cdot 7\cdot (n-1)=16n-14$ FLOPs.
 \end{comment}
+
 \section*{Problem 7}
 
 \subsection*{Problem a}
@@ -427,68 +437,91 @@ Sriptet 'Problem7new.cpp' og 'Problem7func.cpp' bruker den generelle algoritmen 
 
 Vi kjørte for $n = 10$ i \ref{7n100}, $n = 100$ i \ref{7n100} og $n = 1000$ i \ref{7n1000}. 
 
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[scale=0.65]{Images/problem7NEW10.jpg}
+\includegraphics[scale=0.60]{Images/problem7NEW10.jpg}
 \caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 10$ som antall steg.}
 \label{7n10}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[scale=0.65]{Images/problem7NEW100.jpg}
+\includegraphics[scale=0.60]{Images/problem7NEW100.jpg}
 \caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 100$ som antall steg.}
 \label{7n100}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[scale=0.65]{Images/problem7NEW1000.jpg}
+\includegraphics[scale=0.60]{Images/problem7NEW1000.jpg}
 \caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 1000$ som antall steg.}
 \label{7n1000}
 \end{figure}
 
 Legger merker til at etter $n = 100$ så ser man ikke den eksakte grafen lenger, og det er vanskelig å si med det blåtte øyet om tilnærmingen blir bedre eller ikke.
 
+
 \section*{Problem 8}
 
 \subsection*{Problem a}
-Vi fant fant den absoulutte feilen mens vi plottet den tilnærmede og eksakte løsningen og har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnærming i \ref{abserrn10}, \ref{abserrn100}.
+Vi fant fant den absoulutte feilen mens vi plottet den tilnærmede og eksakte løsningen og har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnærming i \ref{abserrn10}, \ref{abserrn100} og \ref{abserrn1000}.
+
+
 \begin{figure}
 	\centering
-	\label{abserrn10}
-	\includegraphics[scale=0.5]{abserrn10.png}
+	\includegraphics[scale=0.5]{Images/abserrn10.png}
 	\caption{Plot for den absolutte verdien for n=10, 100 og 1000}
+	\label{abserrn10}
 \end{figure}
 \begin{figure}
 	\centering
-	\label{abserrn100}
-	\includegraphics[scale=0.5]{abserrn100.png}
+	\includegraphics[scale=0.5]{Images/abserrn100.png}
 	\caption{plot for den absolutte verdien for n=100}
+	\label{abserrn100}
 \end{figure}
 \begin{figure}
 	\centering
-	\label{abserrn1000}
-	\includegraphics[scale=0.5]{abserrn1000.png}
+	\includegraphics[scale=0.5]{Images/abserrn1000.png}
 	\caption{plot for den absolutte verdien for n=1000}
+	\label{abserrn1000}
 \end{figure}
-\begin{comment}
+
+
+
+
+
+\subsection*{problem b}
+Slik som i 8a) fant vi også den relative feilen mens vi plottet den tilnærmede og eksakte mot hverandre og denne finnes da for $n=10$ i \ref{relerrn10}, for $n=100$ i \ref{relerrn100} og for $n=1000$ i \ref{relerrn1000}.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/relerr10.png}
+	\caption{Plot for den absolutte verdien for n=10, 100 og 1000}
+	\label{relerrn10}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/relerr100.png}
+	\caption{plot for den absolutte verdien for n=100}
+	\label{relerrn100}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/relerr1000.png}
+	\caption{plot for den absolutte verdien for n=1000}
+	\label{relerrn1000}
+\end{figure}
+
+\subsection*{Problem c}
+
+Vi plotter den relative maxfeilen for forkjellige n som sett i \ref{relerr}.
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.65]{Images/abserr.png}
-\caption{Den absolutte feilen mellom den eksakte verdien, $u(x)$, og vår tilnærming $v(x)$.}
-\label{abserr}
+\includegraphics[scale=0.5]{Images/relerr.png}
+\caption{Den realtive maksfeilen for forskjellige $n$.}
+\label{relerr}
 \end{figure}
-\subsection*{problem b}
-Slik som i 8a) fant vi også den relative feilen mens vi plottet den tilnærmede og eksakte mot hverandre og denne finnes da i \ref{relerr}.
-\begin{figure}
-	\centering 
-	\includegraphics[scale=0.65]{Images/relerr.png}
-	\caption{Den relative feilen mellom den eksakte veriden $u(x)$ og vår tilnærming $v(x)$}
-\end{figure}
-\end{comment}
-\subsection*{Problem c}
+
 
 \section*{Problem 9}
 
@@ -550,11 +583,13 @@ I filen 'problem9.cpp' har vi kodet den spesielle algoritmen. Kjøres ved komman
 
 \$ make p9all
 
+
+
 \section*{Problem 10}
 
 Kjører både den generelle og spesifikke algortimen 100 gangerfor hver $n$ og tar så gjennomsnittet. Resultaten er vist i plottet \ref{timeplot}.
 
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.65]{Images/plottime.jpg}
 \caption{Tiden brukt til både den genrelle og spesifikke agoritmen for forskjellige $n$.}
