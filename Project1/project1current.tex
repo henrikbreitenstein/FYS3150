@@ -74,7 +74,7 @@
 
 \begin{document}
 
-\title{Title of the document}      % self-explanatory
+\title{Prosjekt 1}      % self-explanatory
 \author{Henrik Modahl Breitenstein}          % self-explanatory
 \author{Carl Petter Duedahl}
 \date{\today}                             % self-explanatory
@@ -227,7 +227,7 @@ Av $A\vec{v}=\vec{g}$ vil vi finne alle verdier mellom grensebetingelsene $u(0)=
 
 \section*{Problem 6}
 
-\section*{a}
+\section*{Problem a}
 Vi har nå en vektor
 $$
 \vec{v}=\begin{pmatrix}
@@ -283,7 +283,7 @@ $$
 (III)^* & 0 &0& b_3-\frac{c_2\cdot a_3}{b_2^*}&c_3 & g_3-g_1\frac{a_3}{b_2^*}
 \end{matrix}
 $$
-og vi kan igjen definere $b_3^*=b_3-\frac{c_2\cdot a_3}{b_2^*}$ og $g_3^*=g_3-g_1\frac{a_3}{b_2^*}$. Og vi kan da fortsette med dette nedover som $(k)-\frac{a_{k}}{b_{k-1}^*}(k-1)^*$. Så har vi fjernet $a$-ene så da må vi fjerne $c$-ene og normalisere b-ene. For å gjøre starter vi i siste ledd med
+og vi kan igjen definere $b_3^*=b_3-\frac{c_2\cdot a_3}{b_2^*}$ og $g_3^*=g_3-g_1\frac{a_3}{b_2^*}$. Og vi kan da fortsette med dette nedover som $(k)-\frac{a_{k}}{b_{k-1}^*}(k-1)^*$. Så har vi fjernet $a$-ene så da må vi fjerne $c$-ene og normalisere b-ene. For å gjøre dette starter vi i siste ledd med
 
 $$
 (n)/b_n
@@ -338,6 +338,7 @@ Så da får vi algoritmen
 		\Comment{Til sammen $3\cdot (n-1)$ FLOPs i loopen}
 	\end{algorithmic}
 \end{algorithm}
+\subsection*{Problem b}
 Så antall FLOPs i loopen blir til sammen 
 $$7(n-1)+1+3(n-1)=\underline{\underline{10(n-1)+1}}
 $$
@@ -452,42 +453,77 @@ Legger merker til at etter $n = 100$ så ser man ikke den eksakte grafen lenger,
 \section*{Problem 8}
 
 \subsection*{Problem a}
-Vi har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnærming i \ref{abserr}.
+Vi fant fant den absoulutte feilen mens vi plottet den tilnærmede og eksakte løsningen og har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnærming i \ref{abserr}.
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.65]{abserr.png}
+\includegraphics[scale=0.65]{Images/abserr.png}
 \caption{Den absolutte feilen mellom den eksakte verdien, $u(x)$, og vår tilnærming $v(x)$.}
 \label{abserr}
 \end{figure}
 \subsection*{problem b}
+Slik som i 8a) fant vi også den relative feilen mens vi plottet den tilnærmede og eksakte mot hverandre og denne finnes da i \ref{relerr}.
+\begin{figure}
+	\centering 
+	\includegraphics[scale=0.65]{Images/relerr.png}
+	\caption{Den relative feilen mellom den eksakte veriden $u(x)$ og vår tilnærming $v(x)$}
+\end{figure}
 \subsection*{Problem c}
 
 \section*{Problem 9}
 
 \subsection*{Problem a}
-
+Nå som vi har en spesiell logaritme kan vi se på hvordan $\tilde{b_i}$ utvikler seg
+$$
+\tilde{b_2}=b_2-c_1\frac{a_2}{b_1}=2-\frac{1}{2}=\frac{3}{2}
+$$
+$$
+\tilde{b_3}=b_3-c_2\frac{a_3}{\tilde{b}_2}=2-\frac{1}{\frac{3}{2}}=2-\frac{2}{3}=\frac{4}{3}
+$$
+og fortsetter vi videre ser vi at det følger mønsteret:
+$$
+\tilde{b}_i=\frac{i+1}{i}
+$$
+og vi husker fra den generelle løsnningen at 
+$$
+\tilde{g}_i=g_i-\frac{\tilde{g}_{i-1}}{b_i}
+$$
+så vi får istedenfor at
+$$
+\tilde{g}_i=g_i+\tilde{g}_i\frac{i}{i+1}
+$$
+Så husker vi at 
+$$
+v_i=(g_i+v_{i+1})/b_i
+$$
+så vi får
+$$
+v_i=(g_i-v_{i+1})\cdot\frac{i}{i+1}
+$$
+Så lager vi en vektor $i1$ som vil bestå av $b_i^{-1}$-verdiene hvor $$i1(i)=\frac{i}{i+1}$$. Da får vi at løsningsalgoritmen er:
 \begin{algorithm}[H]
 	\caption{Spesialisert algoritme}\label{algo:spec}
 	\begin{algorithmic}
-	\State $$a \leftarrow -1$$
-	\State $$b \leftarrow 2$$
-	\State $$c \leftarrow -1$$
-	\State $$d \leftarrow a \cdot c$$ \Comment{1 FLOP}
-	\For {$i=0, 1, 2, \cdots, n-1$} \Comment{Forward elemination}
-	\State $$\widetilde{b}_{i+1} \leftarrow \widetilde{b}_{i+1} - \frac{d}{\widetilde{b}_i}$$ \Comment{2 FLOPs} \\
-	\State $$\widetilde{g}_{i+1} \leftarrow g_{i+1} - \frac{a}{\widetilde{b}_i}g_i$$ \Comment{3 FLOPs} \\
-	\EndFor
-	\For {$i=n-1, n-2, \cdots, 0$} \Comment{Backward elemination}
-	\State $$v_i \leftarrow \frac{\widetilde{g}_i - cv_{i+1}}{\widetilde{b}_i}$$ \Comment{3 FLOPs} 
-	\EndFor
+	\For {$i=1, 2, \cdots, n$} \Comment{Forward elemination, $n-1$ repitisjoner}
+	\State $$\widetilde{g}_{i} \leftarrow g_{i} - g_i \cdot i1_i$$ \Comment{3 FLOPs} \\
+	\EndFor \Comment{Til sammen$3(n-1)$ repetisjoner }
+	\State $$v_n=g_n*i2(n)$$ \Comment{1 FLOP}
+	\For {$i=n-1, n-2, \cdots, 0$} \Comment{Backward elemination, $n-1$ repetisjoner}
+	\State $$v_i \leftarrow (g_i+v_{i+1})\cdot i1_{i+1}$$ \Comment{3 FLOPs} 
+	\EndFor \Comment{Til sammen $3(n-1)$ repetisjoner}
 	\end{algorithmic}
 \end{algorithm}
 
 \subsection*{problem b}
+Vi ser av tellinga over at antall FLOPs vi får er
+$$
+3(n-1)+1+3(n-1)=\underline{\underline{6(n-1)+1}}
+$$
+som er en god del mindre enn vi fikk i den generelle.
+\begin{comment}
 
 Vi regner ut produktet $a \cdot c$ som gir oss $1$ FLOP. For "Forward Elemination" loopen så har vi 5 FLOPs per iterasjoner, som gir tilsammen $5n$. I loopen for "Backwards elemination" så har 3 FLOPs per iterasjon som gir oss $3n$ FLOPs tilsammen. Totalt ender vi da opp med $8n + 1$ FLOPs.
-
+\end{comment}
 \subsection*{Problem c}
 
 I filen 'problem9.cpp' har vi kodet den spesielle algoritmen. Kjøres ved kommandoen \\
@@ -500,7 +536,7 @@ Kjører både den generelle og spesifikke algortimen 100 gangerfor hver $n$ og t
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.65]{plottime.jpg}
+\includegraphics[scale=0.65]{Images/plottime.jpg}
 \caption{Tiden brukt til både den genrelle og spesifikke agoritmen for forskjellige $n$.}
 \label{timeplot}
 \end{figure}
