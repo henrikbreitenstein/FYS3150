@@ -46,7 +46,7 @@ vecvec toone(arma::vec a, arma::vec b, arma::vec c,  arma::vec G){
 */
 void write(arma::vec x, arma::vec v,int n){
   std::ofstream fs;
-  std::string s = "sol7n" + std::to_string(n) + ".txt";
+  std::string s = "Textfiles/sol7n" + std::to_string(n) + ".txt";
   //std::cout << s << std::endl;
   //std::ios::out | std::ios::trunc
   fs.open(s, std::ios::out | std::ios::trunc);

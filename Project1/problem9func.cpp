@@ -19,7 +19,7 @@ arma::vec backsub(arma::vec G, arma::vec v, arma::vec i2){
 }
 void write(arma::vec x, arma::vec v,int n){
   std::ofstream fs;
-  std::string s = "sol9n" + std::to_string(n) + ".txt";
+  std::string s = "Textfiles/sol9n" + std::to_string(n) + ".txt";
   std::cout << s << std::endl;
   //std::ios::out | std::ios::trunc
   fs.open(s, std::ios::out | std::ios::trunc);

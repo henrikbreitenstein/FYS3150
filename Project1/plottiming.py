@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-general_time = np.loadtxt("timinggen.txt")
-spec_time = np.loadtxt("timingsp.txt")
+general_time = np.loadtxt("Textfiles/timinggen.txt")
+spec_time = np.loadtxt("Textfiles/timingsp.txt")
 
 
 time_N_gen_sp = []
@@ -28,4 +28,4 @@ plt.ylabel('time [s]')
 plt.scatter(np.log(time_N_gen_sp[:, 0]), time_N_gen_sp[:, 1], label='General Algorithm')
 plt.scatter(np.log(time_N_gen_sp[:, 0]), time_N_gen_sp[:, 2], label='Special Algorithm')
 plt.legend()
-plt.savefig('plottime.jpg')
+plt.savefig('Images/plottime.jpg')

@@ -3,7 +3,7 @@
 #include <cmath>
 int main(){
   std::ofstream fs;
-  fs.open("timingsp.txt", std::ios::out | std::ios::trunc);
+  fs.open("Textfiles/timingsp.txt", std::ios::out | std::ios::trunc);
   for (int num = 1; num < 5; num++){
     for (int rep = 1; rep < 101; rep++){ // repeat 100 times
       int n = std::pow(10, num);

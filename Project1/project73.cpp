@@ -7,7 +7,7 @@
 int main(){
   //start timing
   std::ofstream fs;
-  fs.open("timinggen.txt", std::ios::out | std::ios::trunc);
+  fs.open("Textfiles/timinggen.txt", std::ios::out | std::ios::trunc);
   for (int num = 1; num < 5; num++){
     for (int rep = 1; rep < 101; rep++){ // repaet 100 times
       int n = std::pow(10, num);

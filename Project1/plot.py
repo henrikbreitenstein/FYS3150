@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 #opens file and loads the coloumns to x and y
 for i in range(1, 15):
     n = 10*i
-    x, y = np.loadtxt(f'out.txt', unpack=True)
-    x2, v = np.loadtxt(f'sol{n}.txt', unpack=True)
+    x, y = np.loadtxt(f'Textfiles/out.txt', unpack=True)
+    x2, v = np.loadtxt(f'Textfiles/sol{n}.txt', unpack=True)
 
     #plots it with title and names on axes
     fig = plt.figure(figsize=(8,8))
@@ -14,5 +14,5 @@ for i in range(1, 15):
     ax.plot(x,y, label='Exact')
     ax.plot(x2, v, label='Approx')
     plt.legend()
-    plt.savefig(f'plotexap{n}.jpg')
+    plt.savefig(f'Images/plotexap{n}.jpg')
     plt.show()

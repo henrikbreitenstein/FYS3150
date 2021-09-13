@@ -7,8 +7,8 @@ def exactu(x):
 #opens file and loads the coloumns to x and y
 for i in range(1, 2):
     n = 10**i
-    x, y = np.loadtxt(f'out.txt', unpack=True)
-    x2, v = np.loadtxt(f'sol9n{n}.txt', unpack=True)
+    x, y = np.loadtxt(f'Textfiles/out.txt', unpack=True)
+    x2, v = np.loadtxt(f'Textfiles/sol9n{n}.txt', unpack=True)
     #Finds absolute and relative error
     yex=exactu(x2)
     abserr=np.log10(yex-v)
@@ -22,7 +22,7 @@ for i in range(1, 2):
     print("y", y)
     print("v", v)
     plt.legend()
-    plt.savefig(f'plotexap{n}.jpg')
+    plt.savefig(f'Images/plotexap{n}.jpg')
     plt.show()
     #Plotting absoulute error
     fig2=plt.figure(figsize=(8,8))
