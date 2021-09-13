@@ -1,5 +1,6 @@
 Sortet alle programmer til å ligge i hovedmappen, mens alle genererte filer ligger i Images eller Textfile mappen 
-
+pga. for store filer kunne vi ikke laste opp dataer som hadde n=10**7 til github, så dette må kjøres med programmene for å
+oppnås.
 Problem 2
 
 Kjører filen "main.cpp" via: $make all
