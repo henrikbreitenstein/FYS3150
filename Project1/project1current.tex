@@ -1,7 +1,7 @@
 \documentclass[english,notitlepage]{revtex4-1}  % defines the basic parameters of the document
 %For preview: skriv i terminal: latexmk -pdf -pvc filnavn
 
-
+\usepackage{verbatim}
 
 % if you want a single-column, remove reprint
 
@@ -74,18 +74,18 @@
 
 \begin{document}
 
-\title{Title of the document}      % self-explanatory
+\title{Prosjekt 1}      % self-explanatory
 \author{Henrik Modahl Breitenstein}          % self-explanatory
 \author{Carl Petter Duedahl}
 \date{\today}                             % self-explanatory
 \noaffiliation                            % ignore this, but keep it.
 
 
-\maketitle 
+\maketitle
 
 \begin{center}
 	\textit{https://github.com/henrikbreitenstein/FYS3150.git}
-\end{center}    
+\end{center}
 
 \section*{Problem 1}
 
@@ -127,7 +127,7 @@ c1 =& 1 - e^{-10}
 Ved å sette inn for $c_1$ og $c_2$ får vi:
 
 \begin{equation}\label{equ}
-u = 1 - (1-e^{-10})x - e^{-10x} 
+u = 1 - (1-e^{-10})x - e^{-10x}
 \end{equation}
 
 
@@ -141,7 +141,90 @@ og kjøre 'plot.py' med \\
 
 \$ python plot.py
 
+Og vi får plottet \ref{exact}:
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.65]{Images/exact.png}
+\caption{Eksakte løsning $u(x)$}
+\label{exact}
+\end{figure}
+
+\section*{Problem 3}
+
+Vi starter med Poisson likningen:
+
+$$ -\frac{d^2 u(x}{dx^2} = f(x)$$
+
+Vi har så via Taylor ekspansjon at:
+
+$$u(x + h) = u(x) + u'(x)h + \frac{1}{2}u''(x)h^2 + \frac{1}{6}u'''(x)h^3 + O(h^4)$$
+$$u(x - h) = u(x) - u'(x)h + \frac{1}{2}u''(x)h^2 - \frac{1}{6}u'''(x)h^3 + O(h^4)$$
+
+Og finner så summen:
+
+$$u(x+h)+u(x-h) = 2u(x) + f''(x)h^2 + O(h^4)$$
+
+Som gir oss
+
+$$u''(x) = \frac{u(x+h)-2u(x)+u(x-h)}{h^2} + O(h^2)$$
+
+Om vi så fjerner error-leddet:
+
+$$v''(x) = \frac{v(x+h)-2v(x)+v(x-h)}{h^2}$$
+
+Som vi kan bruke til å skrive Poisson likningen:
+
+$$-\frac{v(x+h)-2v(x)+v(x-h)}{h^2} = f(x)$$
+
+\section*{Problem 4}
+
+Om vi skriver det om som:
+
+$$-v(x+h)+2v(x)-v(x-h) = h^2f(x)$$
+
+Om vi har x-verdier:
+
+$$\vec{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}$$
+
+Om vi så setter verdiene til $v$ inne i:
+
+$$ \vec{v} = \begin{bmatrix}
+v(x_1) \\ v(x_2) \\ \vdots \\ v(x_n)
+\end{bmatrix}$$
+
+Og det samme med verdiene tii $f(x)$:
+
+$$\vec{g} = \begin{bmatrix}
+f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n)
+\end{bmatrix}$$
+
+Så skriver vi likningen om:
+
+$$-v_{i+1} + 2v_{i} - v_{i-1} = h^2g_i$$
+
+Som kan skrives:
+
+$$\begin{bmatrix}
+-1 \\ 2 \\ -1
+\end{bmatrix}\begin{bmatrix}
+v_{i+1} \\ v_i \\ v_{i-1}
+\end{bmatrix} = h^2 g_i $$
+
+Som vil gjelde for alle $i$:
+
+$$\textbf{A} \vec{v} = h^2 \vec{g} $$
+
+Hvor \textbf{A} må ha $\begin{bmatrix}
+-1 \\ 2 \\ -1
+\end{bmatrix}$ forskøvet for hver rad slik at de henger sammen med de riktige verdiene til $v(x)$ i $\vec{v}$.
+
+
 \section*{Problem 5}
+
+
 \subsection*{Problem a}
 
 Siden vi gjør en matrismultiplikasjon så må bredden, $n$, til $\textbf{A}$ være det samme som lengden $m$ til $\overrightarrow{v}$ og $\overrightarrow{g}$. Så
@@ -153,7 +236,7 @@ Av $A\vec{v}=\vec{g}$ vil vi finne alle verdier mellom grensebetingelsene $u(0)=
 
 \section*{Problem 6}
 
-\section*{a}
+\section*{Problem a}
 Vi har nå en vektor
 $$
 \vec{v}=\begin{pmatrix}
@@ -179,18 +262,97 @@ $$
 (III)& & a_3v_2 &+b_3v_3 &+ c_3 v_4 &=g_3\\
 \vdots&&&&&\\
 (n)&&&a_n v_{n-1}&+b_n v_n&=g_n\\
- 
+
 \end{matrix}
-$$ Herfra skal vi radredusere og starter med å ta $(II)-\frac{a_2}{b_1}(I)$ slik at vi får $$\begin{matrix}
-(II*) & 0&b_2-\frac{c_1\cdot a_2}{b_1}& c_2 &\cdots & g_2-g_1\frac{a_2}{b_1}
-\end{matrix}$$
-og vi ser da at $a_2$ går bort. Vi kan også sette $b_2^*\equiv b_2-\frac{a_2 \cdot c_1}{b_1}$ og $g_2^*\equiv g_2-g_1\frac{a_2}{b_1}$. Da har vi mellom $(II^*)$ og $(III)$ noe som ser ganske likt ut som det vi hadde mellom $(I)$ og $(II)$. Derfor gjør vi det samme som vi gjorde før og tar $(III)-\frac{a_3}{b_2^*}(II)^*$ og får 
 $$
+\begin{comment}
+
+Herfra skal vi radredusere og starter med å ta $(II)-\frac{a_2}{b_1}(I)$ slik at vi får
+$$
+\begin{matrix}
+(II*) & 0&b_2-\frac{c_1\cdot a_2}{b_1}& c_2 &\cdots & g_2-g_1\frac{a_2}{b_1}
+\end{matrix}
+$$
+og vi ser da at $a_2$ går bort. Vi kan også sette $b_2^*\equiv b_2-\frac{a_2 \cdot c_1}{b_1}$ og $g_2^*\equiv g_2-g_1\frac{a_2}{b_1}$. Da har vi mellom $(II^*)$ og $(III)$ noe som ser ganske likt ut som det vi hadde mellom $(I)$ og $(II)$. Vi skal gjøre noe liknende nå også, men også normalisere b slik at den til slutt blir identitetsmatrisen. Da starter vi med siste ledd i $A^*$ som er
+$$
+\begin{matrix}
+	0 & \cdots & b_n & g_n
+\end{matrix}
+$$
+og her deler vi på $b_n$ slik at vi får
+$$
+\begin{matrix}
+0 & \cdots $ 1 & \frac{g_n}{b_n}
+\end{matrix}
+
+\end{comment}
+
+$$ 
 \begin{matrix}
 (III)^* & 0 &0& b_3-\frac{c_2\cdot a_3}{b_2^*}&c_3 & g_3-g_1\frac{a_3}{b_2^*}
 \end{matrix}
 $$
-og vi kan igjen definere $b_3^*=b_3-\frac{c_2\cdot a_3}{b_2^*}$ og $g_3^*=g_3-g_1\frac{a_3}{b_2^*}$. Og vi kan da fortsette med dette nedover som $(k)-\frac{a_{k}}{b_{k-1}^*}(k-1)^*$. Så har vi fjernet $a$-ene så da må vi fjerne $c$-ene. Vi starter nå på siste og neste siste rad, altså $(n)^*$ og $(n-1)^*$ som nå er
+og vi kan igjen definere $b_3^*=b_3-\frac{c_2\cdot a_3}{b_2^*}$ og $g_3^*=g_3-g_1\frac{a_3}{b_2^*}$. Og vi kan da fortsette med dette nedover som $(k)-\frac{a_{k}}{b_{k-1}^*}(k-1)^*$. Så har vi fjernet $a$-ene så da må vi fjerne $c$-ene og normalisere b-ene. For å gjøre dette starter vi i siste ledd med
+
+$$
+(n)/b_n
+$$
+så
+$$
+b_n=\frac{b_n}{b_n}
+$$
+og
+$$
+g_n^*=\frac{g_n}{b_n}
+$$
+Da får vi at
+$
+A_n v_n=g_n
+$
+blir satt ned til
+$$
+v_n=\frac{g_n}{b_n}
+$$
+Så kan vi se på leddet $n-1$ her har vi både en $b_{n-1}$ og en $c_{n-1}$. Vi må derfor gjøre $$(n-1)=((n-1)-(n)\cdot c_{n-1})/b_{n-1}$$ så vi også får fjernet $c_{n-1}$ og står kun igjen med et ettall i $A$ matrisen som gir oss at 
+$$
+v_{n-1}=\frac{g_{n-1}-g_n\cdot c_{n-1}}{b_{n-1}}
+$$
+og herfra kan vi generalisere til
+$$
+v_{i}=\frac{g_{i}-v_{i+1}\cdot c_{n}}{b_{n-1}}
+$$
+Så da får vi algoritmen
+\begin{algorithm}[H]
+	\caption{Radredusering av tridiagonal matrise}\label{algo:midpoint_rule}
+	\begin{algorithmic}
+		\For{$i = 2, 3, ..., n$} \Comment{Forward substitution, $n-1$ repetisjoner}
+		\State $$t\leftarrow \frac{a_i}{b_{i-1}}$$ \Comment{1 FLOP}
+		$$
+		b_{i}\leftarrow b_{i}-c_{i-1}\cdot t
+		$$ \Comment{2 FLOPs}
+		$$
+		g_i\leftarrow g_i-g_{i-1} t
+		$$ \Comment{2 FLOPs} \\
+		\EndFor
+		\Comment{Til sammen $7\cdot (n-1)$ FLOPs i loopen}
+		\State $$
+		v_n=g_n/b_n
+		$$ \Comment{1 FLOP}
+		\For{$j=n-1,n-2, ... ,1$} \Comment{Backward Substitution, $n-1$ repetisjoner}
+		\State
+		$$
+		v_j\leftarrow (g_j-v_{j+1}\cdot c_j)/b_j
+		$$ \Comment{3 FLOPs} \\
+		\EndFor
+		\Comment{Til sammen $3\cdot (n-1)$ FLOPs i loopen}
+	\end{algorithmic}
+\end{algorithm}
+\subsection*{Problem b}
+Så antall FLOPs i loopen blir til sammen 
+$$7(n-1)+1+3(n-1)=\underline{\underline{10(n-1)+1}}
+$$
+\begin{comment}
+
 $$
 \begin{matrix}
 (n-1)^* & 0& \cdots & b_{n-1}^* &c_{n-1}&g_{n-1}^* \\
@@ -261,65 +423,229 @@ $$
 	\end{algorithmic}
 \end{algorithm}
 Da ser vi at vi til sammen får $2\cdot n+ 2\cdot 7\cdot (n-1)=16n-14$ FLOPs.
-
-
-
-
-
-
-
-
-
-
+\end{comment}
 
 \section*{Problem 7}
+
+\subsection*{Problem a}
 
 Sriptet 'Problem7new.cpp' og 'Problem7func.cpp' bruker den generelle algoritmen  til å løse matriselikningen. For å kjøre de sammen: \\
 
 \$ make pr7all
 
+\subsection*{Problem b}
+
+Vi kjørte for $n = 10$ i \ref{7n100}, $n = 100$ i \ref{7n100} og $n = 1000$ i \ref{7n1000}. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.60]{Images/problem7NEW10.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 10$ som antall steg.}
+\label{7n10}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.60]{Images/problem7NEW100.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 100$ som antall steg.}
+\label{7n100}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.60]{Images/problem7NEW1000.jpg}
+\caption{Eksakt $u(x)$ og tilnærmingen $v(x)$ hvor vi har brukt $n = 1000$ som antall steg.}
+\label{7n1000}
+\end{figure}
+
+Legger merker til at etter $n = 100$ så ser man ikke den eksakte grafen lenger, og det er vanskelig å si med det blåtte øyet om tilnærmingen blir bedre eller ikke.
+
+
 \section*{Problem 8}
 
 \subsection*{Problem a}
+Vi fant den absoulutte feilen mens vi plottet den tilnærmede og eksakte løsningen og har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnærming i \ref{abserrn10}, \ref{abserrn100} og \ref{abserrn1000}.
+
+Vi fant fant den absoulutte feilen mens vi plottet den tilnærmede og eksakte løsningen og har illustrert den absolutte feilen mellom den eksakte verdien og vår tilnærming i \ref{abserrn10}, \ref{abserrn100}.
+\begin{figure}
+	\centering
+	\label{abserrn10}
+	\includegraphics[scale=0.5]{abserrn10.png}
+	\caption{Plot for den absolutte verdien for n=10, 100 og 1000}
+\end{figure}
+\begin{figure}
+	\centering
+	\label{abserrn100}
+	\includegraphics[scale=0.5]{abserrn100.png}
+	\caption{plot for den absolutte verdien for n=100}
+\end{figure}
+\begin{figure}
+	\centering
+	\label{abserrn1000}
+	\includegraphics[scale=0.5]{abserrn1000.png}
+	\caption{plot for den absolutte verdien for n=1000}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/abserrn10.png}
+	\caption{Plot for den absolutte verdien for n=10, 100 og 1000}
+	\label{abserrn10}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/abserrn100.png}
+	\caption{plot for den absolutte verdien for n=100}
+	\label{abserrn100}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/abserrn1000.png}
+	\caption{plot for den absolutte verdien for n=1000}
+	\label{abserrn1000}
+\end{figure}
+
+
+
+
+
 \subsection*{problem b}
+Slik som i 8a) fant vi også den relative feilen mens vi plottet den tilnærmede og eksakte mot hverandre og denne finnes da for $n=10$ i \ref{relerrn10}, for $n=100$ i \ref{relerrn100} og for $n=1000$ i \ref{relerrn1000}.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/relerr10.png}
+	\caption{Plot for den absolutte verdien for n=10, 100 og 1000}
+	\label{relerrn10}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/relerr100.png}
+	\caption{plot for den absolutte verdien for n=100}
+	\label{relerrn100}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Images/relerr1000.png}
+	\caption{plot for den absolutte verdien for n=1000}
+	\label{relerrn1000}
+\end{figure}
+
 \subsection*{Problem c}
+
+Vi plotter den relative maxfeilen for forkjellige n som sett i \ref{relerr}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{Images/relerr.png}
+\caption{Den realtive maksfeilen for forskjellige $n$.}
+\label{relerr}
+\end{figure}
+
 
 \section*{Problem 9}
 
-
+\subsection*{Problem a}
+Nå som vi har en spesiell logaritme kan vi se på hvordan $\tilde{b_i}$ utvikler seg
+$$
+\tilde{b_2}=b_2-c_1\frac{a_2}{b_1}=2-\frac{1}{2}=\frac{3}{2}
+$$
+$$
+\tilde{b_3}=b_3-c_2\frac{a_3}{\tilde{b}_2}=2-\frac{1}{\frac{3}{2}}=2-\frac{2}{3}=\frac{4}{3}
+$$
+og fortsetter vi videre ser vi at det følger mønsteret:
+$$
+\tilde{b}_i=\frac{i+1}{i}
+$$
+og vi husker fra den generelle løsnningen at 
+$$
+\tilde{g}_i=g_i-\frac{\tilde{g}_{i-1}}{b_i}
+$$
+så vi får istedenfor at
+$$
+\tilde{g}_i=g_i+\tilde{g}_i\frac{i}{i+1}
+$$
+Så husker vi at 
+$$
+v_i=(g_i+v_{i+1})/b_i
+$$
+så vi får
+$$
+v_i=(g_i-v_{i+1})\cdot\frac{i}{i+1}
+$$
+Så lager vi en vektor $i1$ som vil bestå av $b_i^{-1}$-verdiene hvor $$i1(i)=\frac{i}{i+1}$$. Da får vi at løsningsalgoritmen er:
 \begin{algorithm}[H]
 	\caption{Spesialisert algoritme}\label{algo:spec}
 	\begin{algorithmic}
-	\State $$a \leftarrow -1$$
-	\State $$b \leftarrow 2$$
-	\State $$c \leftarrow -1$$
-	\State $$g \leftarrow \overrightarrow{0_n}$$
-	\State $$\widetilde{b} \leftarrow \overrightarrow{0_n}$$
-	\State $$\widetilde{g} \leftarrow \overrightarrow{0_n}$$
-	\State $$v \leftarrow \overrightarrow{0_n}$$
-	\State $$\widetilde{b}_0 \leftarrow b$$
-	\For {$i=0, 1, 2, \cdots, n$} \Comment{Fyller $g$ med verdiene til $f(x)$}
-	\State $$g_i \leftarrow f(x_i)$$
-	\EndFor
-	\State $$\widetilde{g}_0 \leftarrow g_0$$
-	\State $$d \leftarrow a \cdot c$$
-	\For {$i=0, 1, 2, \cdots, n-1$} \Comment{Forward elemination}
-	\State $$\widetilde{b}_{i+1} \leftarrow \widetilde{b}_{i+1} - \frac{d}{\widetilde{b}_i}$$ \Comment{2 FLOPs}
-	\State $$\widetilde{g}_{i+1} \leftarrow g_{i+1} - \frac{a}{\widetilde{b}_i}g_i$$ \Comment{3 FLOPs}
-	\EndFor
-	\For {$i=n-1, n-2, \cdots, 0$} \Comment{Backward elemination}
-	\State $$v_i \leftarrow \frac{\widetilde{g}_i - cv_{i+1}}{\widetilde{b}_i}$$ \Comment{3 FLOPs}
-	\EndFor
+	\For {$i=1, 2, \cdots, n$} \Comment{Forward elemination, $n-1$ repitisjoner}
+	\State $$\widetilde{g}_{i} \leftarrow g_{i} - g_i \cdot i1_i$$ \Comment{3 FLOPs} \\
+	\EndFor \Comment{Til sammen$3(n-1)$ repetisjoner }
+	\State $$v_n=g_n*i2(n)$$ \Comment{1 FLOP}
+	\For {$i=n-1, n-2, \cdots, 0$} \Comment{Backward elemination, $n-1$ repetisjoner}
+	\State $$v_i \leftarrow (g_i+v_{i+1})\cdot i1_{i+1}$$ \Comment{3 FLOPs} 
+	\EndFor \Comment{Til sammen $3(n-1)$ repetisjoner}
 	\end{algorithmic}
 \end{algorithm}
 
-\subsection*{Problem a}
 \subsection*{problem b}
+Vi ser av tellinga over at antall FLOPs vi får er
+$$
+3(n-1)+1+3(n-1)=\underline{\underline{6(n-1)+1}}
+$$
+som er en god del mindre enn vi fikk i den generelle.
+\begin{comment}
+
+Vi regner ut produktet $a \cdot c$ som gir oss $1$ FLOP. For "Forward Elemination" loopen så har vi 5 FLOPs per iterasjoner, som gir tilsammen $5n$. I loopen for "Backwards elemination" så har 3 FLOPs per iterasjon som gir oss $3n$ FLOPs tilsammen. Totalt ender vi da opp med $8n + 1$ FLOPs.
+\end{comment}
 \subsection*{Problem c}
 
-I filen 'solve.cpp' har vi kodet den spesielle algoritmen. Kjøres ved kommandoen \\
+I filen 'problem9.cpp' har vi kodet den spesielle algoritmen. Kjøres ved kommandoen \\
 
-\$ make solveall
+\$ make p9all
 
+
+
+\section*{Problem 10}
+
+Kjører både den generelle og spesifikke algortimen 100 ganger for hver $n$ og tar så gjennomsnittet. Resultatet er vist i plottet \ref{timeplot}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.65]{Images/plottime.jpg}
+\caption{Tiden brukt til både den genrelle og spesifikke agoritmen for forskjellige $n$.}
+\label{timeplot}
+\end{figure}
+
+Kan se at ved små $n$ så er tidsbruken nesten helt lik, men når man kommer opp i større $n$ så bruker den spesielle merkbart mindre tid enn den generelle.
+
+\section*{Problem 11}
+
+Med LU dekomposisjon så vil man bruke i utgangspunktet $N^3$ FLOPs kun for dekomposisjonen og så skalerer kompleksiteten til å løse hver enkelt $\textbf{A}\vec{v}= \vec{g}$ likning med $N^2$. For kun én slik likningen kan vi se at både den generelle og spesielle algoritmen når man har en tridiagonal matrise skalerer to ordner lavere enn LU dekomposisjon.
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
